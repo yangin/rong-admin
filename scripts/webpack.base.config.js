@@ -73,14 +73,15 @@ const webpackConfigBase = {
         ]
       },
       {
-        test: /\.css$/,
+        test: /\.less$/i,
         exclude: /node_modules/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader // MiniCssExtractPlugin.loader 需要在css-loader之后解析
           },
           'css-loader',
-          getPostCssLoader() // postcss需要放在css之前，其他语言(less、sass等)之后，进行解析
+          getPostCssLoader(), // postcss需要放在css之前，其他语言(less、sass等)之后，进行解析
+          'less-loader'
         ]
       },
       // loader-image
@@ -100,6 +101,7 @@ const webpackConfigBase = {
   },
 
   plugins: [
+  
     // 为项目生成一个可以访问的html文件，否则全是.js文件，没有访问的页面入口。默认为index.html,路径是基于根目录的相对路径
     ...getHtmlWebpackPluginList(),
     new MiniCssExtractPlugin({
