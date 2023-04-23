@@ -1,8 +1,8 @@
 import React from 'react'
-import './style.less'
+import styles from './style.less'
 
 const Login = () => {
-  return <div className='container'>login</div>
+  return <div className={styles.container}>login</div>
 }
 
 export default Login

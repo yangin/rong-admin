@@ -76,10 +76,17 @@ const webpackConfigBase = {
         test: /\.less$/i,
         exclude: /node_modules/,
         use: [
+          MiniCssExtractPlugin.loader, // MiniCssExtractPlugin.loader 需要在css-loader之后解析
           {
-            loader: MiniCssExtractPlugin.loader // MiniCssExtractPlugin.loader 需要在css-loader之后解析
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: {
+                localIdentName: '[local]_[hash:base64:5]' // css模块化, 生成的类名为local_[hash值]
+              },
+              importLoaders: 2, 
+            }
           },
-          'css-loader',
           getPostCssLoader(), // postcss需要放在css之前，其他语言(less、sass等)之后，进行解析
           'less-loader'
         ]
@@ -105,8 +112,8 @@ const webpackConfigBase = {
     // 为项目生成一个可以访问的html文件，否则全是.js文件，没有访问的页面入口。默认为index.html,路径是基于根目录的相对路径
     ...getHtmlWebpackPluginList(),
     new MiniCssExtractPlugin({
-      filename: isProduction ? 'css/[name].[contenthash].css' : 'css/[name].css',
-      chunkFilename: isProduction ? 'css/[name].[contenthash].[id].css' : 'css/[name].[id].css'
+      filename: isProduction ? 'css/[name].[contenthash:8].css' : 'css/[name].css',
+      chunkFilename: isProduction ? 'css/[name].[contenthash:8].[id].css' : 'css/[name].[id].css'
     }),
   ]
 }
