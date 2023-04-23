@@ -92,12 +92,13 @@ const webpackConfigBase = {
         ]
       },
       // loader-image
-      // {
-      //   test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-      //   exclude: /node_modules/,
-      //   include: [ resolve(PATH_ROOT, 'public/images') ],
-      //   use: getImgUrlLoader()
-      // },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext][query]',
+        }
+      },
       // loader-font
       // {
       //   test: /\.(woff|eot|ttf|svg|gif)$/,
