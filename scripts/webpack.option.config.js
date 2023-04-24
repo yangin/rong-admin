@@ -48,6 +48,7 @@ const getBabelLoader = () => ({
     // cacheCompression: false,
     configFile: false, babelrc: false, // do NOT use `babel.config.js`
     presets: [
+      ['@babel/preset-env', { useBuiltIns: 'usage', corejs: 3.22  }],
       '@babel/preset-react',
       [ '@babel/preset-typescript', { isTSX: true, allExtensions: true, allowNamespaces: true } ]
     ],
