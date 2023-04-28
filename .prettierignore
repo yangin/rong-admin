@@ -1,0 +1,7 @@
+node_modules
+dist
+.cache
+.vscode
+.husky
+.idea
+.DS_Store
