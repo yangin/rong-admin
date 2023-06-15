@@ -9,7 +9,7 @@ const {
   getHtmlWebpackPluginList,
   getThreadLoader,
   getBabelLoader,
-  getPostCssLoader,
+  getPostCssLoader
 } = require('./webpack.option.config.js')
 
 const webpackConfigBase = {
@@ -24,8 +24,8 @@ const webpackConfigBase = {
   },
 
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ], // 代码中使用越多的后缀越靠前，可以提升匹配效率
-    modules: [ 'node_modules', PATH_SRC_ROOT ]
+    extensions: ['.tsx', '.ts', '.js'], // 代码中使用越多的后缀越靠前，可以提升匹配效率
+    modules: ['node_modules', PATH_SRC_ROOT]
   },
 
   optimization: {
@@ -56,7 +56,7 @@ const webpackConfigBase = {
           priority: -10, // 确定模块打入的优先级
           reuseExistingChunk: true, // 使用复用已经存在的模块
           enforce: true
-        },
+        }
       }
     }
   },
@@ -84,7 +84,7 @@ const webpackConfigBase = {
               modules: {
                 localIdentName: '[local]_[hash:base64:5]' // css模块化, 生成的类名为local_[hash值]
               },
-              importLoaders: 2, 
+              importLoaders: 2
             }
           },
           getPostCssLoader(), // postcss需要放在css之前，其他语言(less、sass等)之后，进行解析
@@ -96,9 +96,9 @@ const webpackConfigBase = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'images/[name][ext][query]',
+          filename: 'images/[name][ext][query]'
         }
-      },
+      }
       // loader-font
       // {
       //   test: /\.(woff|eot|ttf|svg|gif)$/,
@@ -109,13 +109,13 @@ const webpackConfigBase = {
   },
 
   plugins: [
-  
+
     // 为项目生成一个可以访问的html文件，否则全是.js文件，没有访问的页面入口。默认为index.html,路径是基于根目录的相对路径
     ...getHtmlWebpackPluginList(),
     new MiniCssExtractPlugin({
       filename: isProduction ? 'css/[name].[contenthash:8].css' : 'css/[name].css',
       chunkFilename: isProduction ? 'css/[name].[contenthash:8].[id].css' : 'css/[name].[id].css'
-    }),
+    })
   ]
 }
 module.exports = webpackConfigBase
